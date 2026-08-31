@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ใส่ข้อมูลตัวอย่างลง Firestore · LeaveEasy</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js" defer></script>
+  <script src="js/seed.js" type="module"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>ใส่ข้อมูลตัวอย่างลง Firestore</h1>
+    <p class="subtitle">เครื่องมือใช้ครั้งเดียวของสัปดาห์ที่ 6 · ไม่ได้ใส่ไว้ในเมนู</p>
+
+    <div class="alert alert-warn">
+      หน้านี้จะเขียนข้อมูลตัวอย่างจาก <strong>js/data.js</strong> ขึ้น Firestore
+      <br>เขียนทับอย่างเดียว ไม่มีการลบ · กดซ้ำได้ ข้อมูลไม่ซ้ำ
+    </div>
+
+    <div class="card">
+      <p>จะได้ <strong>users 3</strong> · <strong>leaveTypes 3</strong> ·
+         <strong>leaveRequests 5</strong> (รอพิจารณา 3 · อนุมัติ 1 · ไม่อนุมัติ 1)
+         และโฟลเดอร์ย่อย <strong>approvals</strong> อีก 4 รายการ</p>
+      <div class="btn-row">
+        <button type="button" class="btn" id="ปุ่มใส่ข้อมูล">ใส่ข้อมูลตัวอย่าง</button>
+        <a class="btn-ghost" href="leave-requests.html">ไปหน้ารายการใบลา</a>
+      </div>
+    </div>
+
+    <div id="ผลการทำงาน" style="margin-top:16px"></div>
+  </div>
+</body>
+</html>

@@ -16,7 +16,7 @@
   // ชื่อไฟล์ของหน้าที่กำลังเปิดอยู่ เอาไว้ขีดเส้นใต้เมนูที่ตรงกัน
   var หน้าปัจจุบัน = location.pathname.split("/").pop() || "index.html";
 
-  var html = '<div class="navbar"><span class="brand">🔧 LeaveEasy</span>';
+  var html = '<div class="navbar"><span class="brand">' + ไอคอน("calendar-check") + 'LeaveEasy</span>';
   เมนู.forEach(function (m) {
     var active = m.href === หน้าปัจจุบัน ? ' class="active"' : "";
     html += '<a href="' + m.href + '"' + active + ">" + m.ชื่อ + "</a>";
@@ -33,9 +33,11 @@ function showConfigWarning(ข้อความ) {
   var กล่อง = document.createElement("div");
   กล่อง.className = "alert alert-warn";
   กล่อง.innerHTML =
-    "⚠️ <strong>ยังไม่ได้ตั้งค่า Firebase</strong> — " +
+    ไอคอน("alert-triangle") +
+    "<div><strong>ยังไม่ได้ตั้งค่า Firebase</strong> — " +
     (ข้อความ || "หน้านี้จึงยังไม่ได้อ่านข้อมูลจากฐานข้อมูลจริง") +
-    "<br>วิธีตั้งค่าอยู่ในไฟล์ SETUP.md ขั้นที่ 4";
+    "<br>วิธีตั้งค่าอยู่ในไฟล์ SETUP.md ขั้นที่ 4</div>";
+  กล่อง.setAttribute("role", "alert");
   var ที่วาง = document.querySelector(".container") || document.body;
   ที่วาง.insertBefore(กล่อง, ที่วาง.firstChild);
 }

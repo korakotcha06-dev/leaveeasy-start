@@ -14,22 +14,43 @@
     .find(function (x) { return x.id === รหัสใบลา; });
 
   if (!ใบ) {
-    กล่องใบลา.innerHTML = "<p>ไม่พบใบขอลาที่ต้องการ — อาจถูกลบไปแล้ว หรือลิงก์ไม่ถูกต้อง</p>";
+    document.getElementById("หัวเรื่อง").textContent = "ไม่พบใบขอลาที่ต้องการ";
+    document.getElementById("คำโปรย").textContent =
+      "ใบนี้อาจถูกลบไปแล้ว หรือลิงก์ไม่ถูกต้อง";
+    กล่องใบลา.innerHTML =
+      '<div class="empty-state">' +
+      '<div class="mark">' + ไอคอน("inbox") + "</div>" +
+      "<h2>เปิดใบลานี้ไม่ได้</h2>" +
+      "<p>ลองกลับไปเลือกใบลาจากหน้ารายการอีกครั้ง</p>" +
+      '<div class="btn-row">' +
+      '<a class="btn" href="leave-requests.html">ไปหน้ารายการใบลา</a>' +
+      "</div></div>";
     return;
   }
 
   var ความเห็น = window.LEAVE_DATA.approvals.filter(function (c) { return c.requestId === ใบ.id; });
 
+  วาดหัวเรื่อง();
   วาดใบลา();
   วาดความเห็น();
   กล่องความเห็น.classList.remove("hidden");
 
   document.getElementById("ปุ่มส่งความเห็น").addEventListener("click", ส่งความเห็น);
 
+  // ── หัวเรื่องของหน้า ──
+  // เอาหัวข้อใบลาขึ้นเป็นหัวเรื่อง เพื่อให้รู้ทันทีว่ากำลังเปิดใบไหนอยู่
+  // ทั้งบนหน้าจอ บนแท็บเบราว์เซอร์ และในประวัติการเข้าชม
+  function วาดหัวเรื่อง() {
+    document.getElementById("หัวเรื่อง").textContent = ใบ.title;
+    document.getElementById("คำโปรย").textContent =
+      ใบ.leaveTypeName + " · ยื่นเมื่อ " + ใบ.createdAt;
+    document.title = ใบ.title + " · LeaveEasy";
+  }
+
   // ── วาดข้อมูลใบลาลงหน้าจอ ──
   function วาดใบลา() {
+    // ไม่ต้องมีแถว "หัวข้อ" แล้ว เพราะยกขึ้นไปเป็นหัวเรื่องของหน้าแทน
     var แถว = [
-      ["หัวข้อ", esc(ใบ.title)],
       ["เหตุผลการลา", esc(ใบ.reason)],
       ["ประเภทการลา", esc(ใบ.leaveTypeName)],
       ["วันที่ลา", esc(ใบ.startDate) + " ถึง " + esc(ใบ.endDate)],
@@ -45,8 +66,11 @@
 
     // ปุ่มอนุมัติ / ไม่อนุมัติ ขึ้นเฉพาะใบที่ยังรอพิจารณา
     if (ใบ.status === "รอพิจารณา") {
+      // แยกออกมาเป็นโซนของตัวเอง เพราะกดแล้วเปลี่ยนกลับไม่ได้
+      // ไม่ควรวางปนกับปุ่มธรรมดาจนกดพลาด
       html +=
-        '<div class="btn-row">' +
+        '<div class="btn-row danger-zone">' +
+        '<p class="hint">การพิจารณาทำได้ครั้งเดียว กดแล้วเปลี่ยนสถานะต่อไม่ได้</p>' +
         '<button type="button" class="btn-ok" id="ปุ่มอนุมัติ">อนุมัติ</button>' +
         '<button type="button" class="btn-danger" id="ปุ่มไม่อนุมัติ">ไม่อนุมัติ</button>' +
         "</div>";
@@ -71,6 +95,7 @@
     }
     ใบ.status = สถานะใหม่;   // แก้เฉพาะช่อง status เท่านั้น
     วาดใบลา();
+    ประกาศ("เปลี่ยนสถานะเป็น " + สถานะใหม่ + " แล้ว");
   }
 
   // ── รายการความเห็น เรียงจากเก่าไปใหม่ ──
@@ -96,7 +121,7 @@
     var ข้อความ = ช่อง.value.trim();
 
     if (!ข้อความ) {
-      เตือน.textContent = "⚠️ พิมพ์ข้อความก่อน จึงจะส่งความเห็นได้";
+      เตือนพร้อมไอคอน(เตือน, "error", "พิมพ์ข้อความก่อน จึงจะส่งความเห็นได้");
       เตือน.classList.remove("hidden");
       return;
     }
@@ -112,5 +137,18 @@
     });
     ช่อง.value = "";
     วาดความเห็น();
+  }
+  // ── บอกผลลัพธ์ให้คนที่ใช้โปรแกรมอ่านหน้าจอรู้ด้วย ──
+  // การกดปุ่มแล้วหน้าจอเปลี่ยน คนที่มองเห็นรู้ทันที แต่คนที่ฟังต้องมีคนบอก
+  function ประกาศ(ข้อความ) {
+    var ที่วาง = document.getElementById("ประกาศผล");
+    if (!ที่วาง) {
+      ที่วาง = document.createElement("div");
+      ที่วาง.id = "ประกาศผล";
+      ที่วาง.className = "alert alert-ok";
+      ที่วาง.setAttribute("role", "status");
+      กล่องใบลา.parentNode.insertBefore(ที่วาง, กล่องใบลา);
+    }
+    ที่วาง.textContent = ข้อความ;
   }
 })();

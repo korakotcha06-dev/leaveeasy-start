@@ -6,6 +6,7 @@
   <title>ยื่นใบลาใหม่ · LeaveEasy</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/util.js" defer></script>
+  <script src="js/icons.js" defer></script>
   <script src="js/nav.js" defer></script>
   <script src="js/data.js" defer></script>
   <script src="js/new-leave-request.js" defer></script>
@@ -18,25 +19,27 @@
     <p class="subtitle">กรอกให้ครบทุกช่อง แล้วกดบันทึก · ใบลาใหม่จะมีสถานะ รอพิจารณา เสมอ</p>
 
     <div class="card">
-      <div id="ข้อความเตือน" class="alert alert-error hidden"></div>
+      <div id="ข้อความเตือน" class="alert alert-error hidden" role="alert"></div>
 
-      <form id="ฟอร์มใบลา">
+      <!-- novalidate = ปิดข้อความเตือนของเบราว์เซอร์ ให้ JS คุมข้อความภาษาไทยเอง
+           ส่วน required ยังอยู่ เพื่อบอกโปรแกรมอ่านหน้าจอว่าช่องนี้จำเป็น -->
+      <form id="ฟอร์มใบลา" novalidate>
         <label for="title">หัวข้อ</label>
-        <input type="text" id="title" placeholder="เช่น ลาพักร้อนไปเที่ยวกับครอบครัว">
+        <input type="text" id="title" required placeholder="เช่น ลาพักร้อนไปเที่ยวกับครอบครัว">
 
         <label for="reason">เหตุผลการลา</label>
-        <textarea id="reason" placeholder="เล่าเหตุผลสั้น ๆ ให้หัวหน้าเข้าใจ"></textarea>
+        <textarea id="reason" required placeholder="เล่าเหตุผลสั้น ๆ ให้หัวหน้าเข้าใจ"></textarea>
 
         <label for="leaveTypeId">ประเภทการลา</label>
-        <select id="leaveTypeId">
+        <select id="leaveTypeId" required>
           <option value="">— เลือกประเภทการลา —</option>
         </select>
 
         <label for="startDate">วันที่เริ่มลา</label>
-        <input type="date" id="startDate">
+        <input type="date" id="startDate" required>
 
         <label for="endDate">วันที่สิ้นสุด</label>
-        <input type="date" id="endDate">
+        <input type="date" id="endDate" required>
 
         <div class="btn-row">
           <button type="submit" id="ปุ่มบันทึก">บันทึก</button>

@@ -4,14 +4,14 @@
 // ไฟล์นี้ที่เดียวที่รู้ค่าตั้งค่าของโปรเจกต์ หน้าอื่นแค่ขอ db ไปใช้
 // ถ้าย้ายโปรเจกต์ Firebase แก้ที่นี่ไฟล์เดียว ทุกหน้าเปลี่ยนตาม
 //
-// 📌 เรียก Firebase จาก CDN ของ Google ตรง ๆ เพราะใบงานนี้ห้ามมีขั้นตอน build
+// เรียก Firebase จาก CDN ของ Google ตรง ๆ เพราะใบงานนี้ห้ามมีขั้นตอน build
 //    ตรึงเลขเวอร์ชันไว้ (12.18.0) เพื่อไม่ให้เว็บพังเองตอน Google ออกรุ่นใหม่
 // ─────────────────────────────────────────────────────────────
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-// ⚠️ ค่าชุดนี้ไม่ใช่ความลับ — ใครเปิดเว็บก็เห็นได้ และเอาขึ้น GitHub ได้
+// ค่าชุดนี้ไม่ใช่ความลับ — ใครเปิดเว็บก็เห็นได้ และเอาขึ้น GitHub ได้
 //    ตัวที่กันคนแปลกหน้าจริง ๆ คือ Security Rules ซึ่งจะทำในสัปดาห์ที่ 7
 const firebaseConfig = {
   apiKey: "AIzaSyBvKUwm7PknQijCSRFPFwx2fLrFJw-iAZA",

@@ -8,10 +8,19 @@
 
 ## ภาพที่แนบ
 
+### คู่ที่ต้องดูพร้อมกัน — หน้าเว็บ กับ Firebase Console
+
 | ไฟล์ | แสดงอะไร |
 |---|---|
 | `01-list-reads-firestore.jpg` | หน้ารายการดึงใบลา 5 ใบจากโฟลเดอร์ `leaveRequests` เรียงจากใหม่ไปเก่า |
+| `04-firebase-console-collections.jpg` | Firebase Console ฝั่งเดียวกัน เห็นโฟลเดอร์ `leaveRequests` `leaveTypes` `users` และเอกสาร `lr001` ถึง `lr005` พร้อมชื่อช่องข้อมูลใน `lr001` |
+
+### ภาพประกอบอื่น
+
+| ไฟล์ | แสดงอะไร |
+|---|---|
 | `02-external-edit-reflected.jpg` | หลังแก้ `title` ของ `lr001` จากภายนอก แถวที่ 4 เปลี่ยนตามโดยไม่แตะโค้ด |
+| `05-firebase-console-approvals.jpg` | เส้นทาง `leaveRequests > lr001 > approvals > ap001` ยืนยันว่า `approvals` เป็นโฟลเดอร์ย่อยที่ซ้อนอยู่ในใบลา ไม่ใช่โฟลเดอร์แยก |
 | `03-permission-denied-message.jpg` | ตอน Security Rules ยังไม่ยอมให้อ่าน ระบบบอกรหัส `permission-denied` แทนหน้าว่างเปล่า |
 
 ## วิธีที่ใช้พิสูจน์
@@ -31,12 +40,6 @@ curl -s -X PATCH "$BASE?key=$KEY&updateMask.fieldPaths=title" \
 
 ผลที่ได้กลับมา `updateTime: 2026-09-01T09:26:20Z` แล้วรีเฟรชหน้าเว็บเห็นหัวข้อใหม่ทันที
 หลังเก็บภาพเสร็จได้คืนค่า `title` กลับเป็นของเดิมแล้ว
-
-## ข้อจำกัดของหลักฐานชุดนี้
-
-**ไม่มีภาพจากหน้าจอ Firebase Console** เพราะเบราว์เซอร์ล็อกอินอยู่คนละบัญชี Google
-กับบัญชีที่เป็นเจ้าของโปรเจกต์ `leaveeasy-korakot` (ขึ้นว่า *The project does not exist or you
-do not have permission*) ถ้าใบงานบังคับว่าต้องเป็นภาพจาก Console ต้องถ่ายเพิ่มเอง
 
 ## ผลตรวจฐานข้อมูล
 

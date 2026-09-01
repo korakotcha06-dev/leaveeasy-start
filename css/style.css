@@ -226,3 +226,7 @@ td [data-icon] { margin-right: 7px; color: var(--สีหลัก); }
   border: 0; color: var(--สีจาง);
 }
 .empty-state .mark .icon { width: 46px; height: 46px; stroke-width: 1.4; }
+
+/* ── ไอคอนในกล่องตัวเลขของแดชบอร์ด ── */
+.stat .stat-icon { width: 26px; height: 26px; color: var(--สีจาง); margin-bottom: 2px; }
+.stat .number { margin-top: 2px; }
